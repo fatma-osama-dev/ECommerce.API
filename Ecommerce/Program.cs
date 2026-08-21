@@ -1,5 +1,6 @@
 
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Data.SeedData;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce
@@ -37,6 +38,7 @@ namespace Ecommerce
 
          
                 await _context.Database.MigrateAsync();
+                await EcommerceDbContextSeed.SeedAsync(_context);
 
                 logger.LogInformation("Database migration applied successfully!");
             }
