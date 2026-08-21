@@ -6,7 +6,7 @@ namespace Ecommerce
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +22,33 @@ namespace Ecommerce
             });
 
             var app = builder.Build();
+
+        
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+            var logger = loggerFactory.CreateLogger<Program>();
+
+            try
+            {
+               
+                var _context = services.GetRequiredService<EcommerceDbContext>();
+                
+
+         
+                await _context.Database.MigrateAsync();
+
+                logger.LogInformation("Database migration applied successfully!");
+            }
+            catch (Exception ex)
+            {
+             
+                
+
+             
+                logger.LogError(ex, "An error occurred during database migration.");
+            }
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
