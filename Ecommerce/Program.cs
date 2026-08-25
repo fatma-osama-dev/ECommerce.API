@@ -1,7 +1,10 @@
 
+using Ecommerce.Domain.Interfaces.Repositories;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
+using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Ecommerce
 {
@@ -21,6 +24,9 @@ namespace Ecommerce
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+           
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
             var app = builder.Build();
 

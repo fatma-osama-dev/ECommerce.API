@@ -50,8 +50,8 @@ namespace Ecommerce.Infrastructure.Data.SeedData
             }
             catch (Exception ex)
             {
-                
-                throw;
+
+                throw new Exception($"خطأ في الـ Seed Data: {ex.Message}", ex);
             }
         }
     }
