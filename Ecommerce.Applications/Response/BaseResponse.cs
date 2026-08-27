@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Domain.Response
+namespace Ecommerce.Application.Response
 {
     public class BaseResponse<T>
     {
@@ -39,4 +39,4 @@ namespace Ecommerce.Domain.Response
             Exception = exception;
         }
     }
-    }
+}
