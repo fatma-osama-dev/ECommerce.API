@@ -30,7 +30,7 @@ namespace Ecommerce
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
-
+            builder.Services.AddScoped<ITypeService, TypeService>();
 
             var app = builder.Build();
 

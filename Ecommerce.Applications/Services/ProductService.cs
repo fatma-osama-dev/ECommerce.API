@@ -76,6 +76,9 @@ namespace Ecommerce.Application.Services
                     (!brandId.HasValue || p.BrandId == brandId) &&
                     (!typeId.HasValue || p.ProductTypeId == typeId)
                 );
+                if (products == null) { 
+                    return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "No products found");
+                }
 
                 var productDtos = _mapper.Map<IReadOnlyCollection<ProductGetDto>>(products);
                 return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(true, "Products retrieved successfully", productDtos);

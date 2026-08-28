@@ -9,6 +9,6 @@ namespace Ecommerce.Application.DTOs.TypeDtos
     public class TypeGetDto
     {
         public int Id { get; set; }
-        public string ProductTypeName { get; set; } = null!;
+        public string Name { get; set; } = null!;
     }
 }

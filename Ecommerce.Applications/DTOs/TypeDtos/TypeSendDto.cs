@@ -8,6 +8,6 @@ namespace Ecommerce.Application.DTOs.TypeDtos
 {
     public class TypeSendDto
     {
-        public string ProductTypeName { get; set; } = null!;
+        public string Name { get; set; } = null!;
     }
 }

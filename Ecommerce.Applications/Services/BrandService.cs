@@ -14,8 +14,8 @@ namespace Ecommerce.Application.Services
 {
     public class BrandService : IBrandService         
     {
-        private IGenericRepository<ProductBrand> _brandRepo;
-        private IMapper _mapper;
+        private readonly IGenericRepository<ProductBrand> _brandRepo;
+        private readonly IMapper _mapper;
         public BrandService(IGenericRepository<ProductBrand> brandRepo, IMapper mapper)
         {
             _brandRepo = brandRepo;
@@ -66,11 +66,10 @@ namespace Ecommerce.Application.Services
                 if (brandEntities == null){
                     return new BaseResponse<IReadOnlyCollection<BrandGetDto>>(false, "No brands found.");
                 }
-                else
-                {
-                    var brandDtos = _mapper.Map<IReadOnlyCollection<BrandGetDto>>(brandEntities);
-                    return new BaseResponse<IReadOnlyCollection<BrandGetDto>>(true, "Brands retrieved successfully.", brandDtos);
-                }
+               
+                var brandDtos = _mapper.Map<IReadOnlyCollection<BrandGetDto>>(brandEntities);
+                 return new BaseResponse<IReadOnlyCollection<BrandGetDto>>(true, "Brands retrieved successfully.", brandDtos);
+                
                     
             }
             catch (Exception ex) { 
@@ -101,7 +100,7 @@ namespace Ecommerce.Application.Services
                 var existingBrand = await _brandRepo.GetByIdAsync(brandId);
                 if(existingBrand == null)
                 {
-                    return new BaseResponse<BrandGetDto>(false, "Brand with ID {id} not found for updating.");
+                    return new BaseResponse<BrandGetDto>(false, $"Brand with ID {brandId} not found for updating.");
                 }
                 existingBrand.Name = dto.Name;
                 await _brandRepo.UpdateAsync(existingBrand);
