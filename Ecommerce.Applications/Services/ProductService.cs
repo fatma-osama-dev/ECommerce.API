@@ -50,10 +50,14 @@ namespace Ecommerce.Application.Services
             try
             {
                 var isDeleted = await _productRepo.DeleteAsync(productId);
-                await _productRepo.SaveChangesAsync();
+
 
                 if (isDeleted)
+                {
+                    await _productRepo.SaveChangesAsync();
                     return new BaseResponse<string>(true, "Product deleted successfully");
+                    
+                }
                 else
                     return new BaseResponse<string>(false, "Product not found");
             }
@@ -78,7 +82,7 @@ namespace Ecommerce.Application.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "Error occurred while fetching products", ex);
+                return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "Error occurred while retrieving products", ex);
             }
         }
 
@@ -99,7 +103,7 @@ namespace Ecommerce.Application.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<ProductGetDto>(false, "Error occurred while fetching the product", ex);
+                return new BaseResponse<ProductGetDto>(false, "Error occurred while retrieving the product", ex);
             }
         }
         public async Task<BaseResponse<ProductGetDto>> UpdateProductAsync(int id, ProductUpdateDto dto)
