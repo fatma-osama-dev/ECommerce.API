@@ -1,12 +1,12 @@
-
 using Ecommerce.Application.Mapping;
-using Ecommerce.Domain.Interfaces.Repositories;
+using Ecommerce.Application.ServiceInterfaces;
+using Ecommerce.Domain.RepositoryInterfaces;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-
+using Ecommerce.Application.Services;
 namespace Ecommerce
 {
     public class Program
@@ -28,6 +28,7 @@ namespace Ecommerce
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IProductService, ProductService>();
 
 
             var app = builder.Build();

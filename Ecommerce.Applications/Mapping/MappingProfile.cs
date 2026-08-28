@@ -17,6 +17,8 @@ namespace Ecommerce.Application.Mapping
         {
             CreateMap<Product, ProductGetDto>();
             CreateMap<ProductSendDto,Product>();
+            CreateMap<ProductUpdateDto, Product>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<ProductBrand, BrandGetDto>();
             CreateMap<BrandSendDto, ProductBrand>();

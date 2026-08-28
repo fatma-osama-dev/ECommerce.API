@@ -1,4 +1,6 @@
-﻿using Ecommerce.Domain.Interfaces.Repositories;
+﻿
+using Ecommerce.Domain.RepositoryInterfaces;
+using Ecommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,8 +13,8 @@ namespace Ecommerce.Infrastructure.Repositories
 {
   public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly DbContext _context;
-        public GenericRepository(DbContext context)
+        private readonly EcommerceDbContext _context;
+        public GenericRepository(EcommerceDbContext context)
         {
             _context = context;
         }
