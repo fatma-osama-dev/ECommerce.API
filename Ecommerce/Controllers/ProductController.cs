@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.DTOs.ProductDtos;
+using Ecommerce.Application.Helpers;
 using Ecommerce.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +23,9 @@ namespace Ecommerce.APIs.Controllers
         }  
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] int? brandId, [FromQuery] int? typeId)
+        public async Task<IActionResult> GetAllProducts([FromQuery]  ProductSpecParams productSpecParams)
         {
-            var result = await _productService.GetAllProductsAsync(brandId, typeId);
+            var result = await _productService.GetAllProductsAsync(productSpecParams);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

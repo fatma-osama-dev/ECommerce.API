@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.DTOs.ProductDtos;
+using Ecommerce.Application.Helpers;
 using Ecommerce.Application.Response;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Ecommerce.Application.ServiceInterfaces
 {
     public interface IProductService
     {
-        Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(int? brandId=null ,int? typeId=null);
+        Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams);
         Task<BaseResponse<ProductGetDto>> GetProductByIdAsync(int productId);
         Task<BaseResponse<ProductGetDto>> CreateProductAsync(ProductSendDto dto);
         Task<BaseResponse<ProductGetDto>> UpdateProductAsync(int id, ProductUpdateDto dto);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.DTOs.ProductDtos;
+using Ecommerce.Application.Helpers;
 using Ecommerce.Application.Response;
 using Ecommerce.Application.ServiceInterfaces;
 using Ecommerce.Domain.Entities;
@@ -67,16 +68,16 @@ namespace Ecommerce.Application.Services
             }
         }
 
-        public async Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(int? brandId = null, int? typeId = null)
+        public async Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams)
         {
             try
             {
 
                 var products = await _productRepo.FindAsync(p =>
-                    (!brandId.HasValue || p.BrandId == brandId) &&
-                    (!typeId.HasValue || p.ProductTypeId == typeId)
+                    (!productSpecParams.BrandId.HasValue || p.BrandId == productSpecParams.BrandId) &&
+                    (!productSpecParams.TypeId.HasValue || p.ProductTypeId == productSpecParams.TypeId)
                 );
-                if (products == null) { 
+                if (products == null|| !products.Any()) { 
                     return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "No products found");
                 }
 

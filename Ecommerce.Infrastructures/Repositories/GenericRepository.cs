@@ -38,7 +38,7 @@ namespace Ecommerce.Infrastructure.Repositories
 
 
 
-        public async Task<IReadOnlyCollection<T>> FindAsync(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public async Task<IReadOnlyCollection<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
