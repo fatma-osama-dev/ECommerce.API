@@ -73,9 +73,11 @@ namespace Ecommerce.Application.Services
             try
             {
 
-                var products = await _productRepo.FindAsync(p =>
-                    (!productSpecParams.BrandId.HasValue || p.BrandId == productSpecParams.BrandId) &&
-                    (!productSpecParams.TypeId.HasValue || p.ProductTypeId == productSpecParams.TypeId)
+                  var products = await _productRepo.FindAsync(p =>
+                        (string.IsNullOrEmpty(productSpecParams.Search) || p.Name.ToLower().Contains(productSpecParams.Search.ToLower())) &&
+                        (!productSpecParams.BrandId.HasValue || p.BrandId == productSpecParams.BrandId) &&
+                        (!productSpecParams.TypeId.HasValue || p.ProductTypeId == productSpecParams.TypeId)
+       
                 );
                 if (products == null|| !products.Any()) { 
                     return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "No products found");
