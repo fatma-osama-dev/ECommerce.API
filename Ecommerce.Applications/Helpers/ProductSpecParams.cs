@@ -12,6 +12,7 @@ namespace Ecommerce.Application.Helpers
         public int? TypeId { get; set; }
 
         public string? Search { get; set; } = null!;
+        public string? Sort { get; set; } = null!;
 
     }
 }

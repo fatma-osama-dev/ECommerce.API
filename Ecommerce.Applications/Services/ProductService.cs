@@ -83,7 +83,21 @@ namespace Ecommerce.Application.Services
                     return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "No products found");
                 }
 
-                var productDtos = _mapper.Map<IReadOnlyCollection<ProductGetDto>>(products);
+                if (productSpecParams.Sort == null)
+                {
+                    products = products.OrderBy(p=> p.Name).ToList();   
+                }
+
+                else if (productSpecParams.Sort != null && productSpecParams.Sort == "PriceAsc")
+                {
+                    products = products.OrderBy(p => p.Price).ToList();
+
+                }
+                else if (productSpecParams.Sort != null && productSpecParams.Sort == "PriceDesc") {
+                    products = products.OrderByDescending(p => p.Price).ToList();
+                }
+
+                    var productDtos = _mapper.Map<IReadOnlyCollection<ProductGetDto>>(products);
                 return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(true, "Products retrieved successfully", productDtos);
             }
             catch (Exception ex)
