@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.DTOs.Basket;
 using Ecommerce.Application.DTOs.BrandDtos;
 using Ecommerce.Application.DTOs.ProductDtos;
 using Ecommerce.Application.DTOs.TypeDtos;
@@ -30,6 +31,11 @@ namespace Ecommerce.Application.Mapping
 
             CreateMap<ProductType, TypeGetDto>();
             CreateMap<TypeSendDto, ProductType>();
+
+            CreateMap<CustomerBasket, CustomerBasketDto>().ReverseMap();
+
+            CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+
         }
     }
 }

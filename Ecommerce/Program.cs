@@ -1,12 +1,13 @@
 using Ecommerce.Application.Mapping;
 using Ecommerce.Application.ServiceInterfaces;
+using Ecommerce.Application.Services;
 using Ecommerce.Domain.RepositoryInterfaces;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Ecommerce.Application.Services;
+using StackExchange.Redis;
 namespace Ecommerce
 {
     public class Program
@@ -25,12 +26,26 @@ namespace Ecommerce
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddSingleton<IConnectionMultiplexer>(opt =>
+            {
+                var redisConnectionString = builder.Configuration.GetConnectionString("Redis")!;
+                var configuration = ConfigurationOptions.Parse(redisConnectionString, true);
+
+            
+                configuration.AbortOnConnectFail = false;
+
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<ITypeService, TypeService>();
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+            builder.Services.AddScoped<IBasketService, BasketService>();
 
             var app = builder.Build();
 
