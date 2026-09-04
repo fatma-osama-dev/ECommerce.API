@@ -68,7 +68,7 @@ namespace Ecommerce.Application.Services
             }
         }
 
-        public async Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams)
+        public async Task<BaseResponse<PaginationResponse<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Ecommerce.Application.Services
        
                 );
                 if (products == null|| !products.Any()) { 
-                    return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "No products found");
+                    return new BaseResponse<PaginationResponse<ProductGetDto>>(false, "No products found");
                 }
 
                 if (productSpecParams.Sort == null)
@@ -96,13 +96,19 @@ namespace Ecommerce.Application.Services
                 else if (productSpecParams.Sort != null && productSpecParams.Sort == "PriceDesc") {
                     products = products.OrderByDescending(p => p.Price).ToList();
                 }
+                int totalItemsCount = products.Count;
 
-                    var productDtos = _mapper.Map<IReadOnlyCollection<ProductGetDto>>(products);
-                return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(true, "Products retrieved successfully", productDtos);
+                int skipAmount = (productSpecParams.PageIndex -1) * productSpecParams.PageSize;
+                 products = products.Skip(skipAmount).Take(productSpecParams.PageSize).ToList();
+
+                var productDtos = _mapper.Map<IReadOnlyCollection<ProductGetDto>>(products);
+                var paginationResult = new PaginationResponse<ProductGetDto>(productSpecParams.PageIndex, productSpecParams.PageSize,totalItemsCount, productDtos);
+               
+                return new BaseResponse<PaginationResponse<ProductGetDto>>(true, "Products retrieved successfully", paginationResult);
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IReadOnlyCollection<ProductGetDto>>(false, "Error occurred while retrieving products", ex);
+                return new BaseResponse<PaginationResponse<ProductGetDto>>(false, "Error occurred while retrieving products", ex);
             }
         }
 

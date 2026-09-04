@@ -11,7 +11,7 @@ namespace Ecommerce.Application.ServiceInterfaces
 {
     public interface IProductService
     {
-        Task<BaseResponse<IReadOnlyCollection<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams);
+        Task<BaseResponse<PaginationResponse<ProductGetDto>>> GetAllProductsAsync(ProductSpecParams productSpecParams);
         Task<BaseResponse<ProductGetDto>> GetProductByIdAsync(int productId);
         Task<BaseResponse<ProductGetDto>> CreateProductAsync(ProductSendDto dto);
         Task<BaseResponse<ProductGetDto>> UpdateProductAsync(int id, ProductUpdateDto dto);
