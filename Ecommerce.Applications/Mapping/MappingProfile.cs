@@ -2,6 +2,7 @@
 using Ecommerce.Application.DTOs.BrandDtos;
 using Ecommerce.Application.DTOs.ProductDtos;
 using Ecommerce.Application.DTOs.TypeDtos;
+using Ecommerce.Application.Helpers;
 using Ecommerce.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ namespace Ecommerce.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductGetDto>();
+            CreateMap<Product, ProductGetDto>()
+              .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom<ProductUrlResolver>());
+
             CreateMap<ProductSendDto,Product>();
+
             CreateMap<ProductUpdateDto, Product>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
