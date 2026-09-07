@@ -46,7 +46,7 @@ namespace Ecommerce
             builder.Services.AddScoped<ITypeService, TypeService>();
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
             builder.Services.AddScoped<IBasketService, BasketService>();
-
+            builder.Services.AddScoped<ITokenService, TokenService>();
             var app = builder.Build();
 
         
