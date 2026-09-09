@@ -1,6 +1,7 @@
 using Ecommerce.Application.Mapping;
 using Ecommerce.Application.ServiceInterfaces;
 using Ecommerce.Application.Services;
+using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryInterfaces;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
@@ -47,6 +48,10 @@ namespace Ecommerce
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
             builder.Services.AddScoped<IBasketService, BasketService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddIdentityCore<AppUser>()
+               .AddEntityFrameworkStores<EcommerceDbContext>();
+
             var app = builder.Build();
 
         

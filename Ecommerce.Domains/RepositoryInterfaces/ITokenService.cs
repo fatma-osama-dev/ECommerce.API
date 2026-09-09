@@ -9,6 +9,6 @@ namespace Ecommerce.Domain.RepositoryInterfaces
 {
     public interface ITokenService
     {
-        public string creatToken(AppUser appUser);
+        public string CreateToken(AppUser appUser);
     }
 }

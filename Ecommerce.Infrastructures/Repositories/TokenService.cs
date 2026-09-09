@@ -21,7 +21,7 @@ namespace Ecommerce.Infrastructure.Repositories
             _config = config;   
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]!));
         }
-        public string creatToken(AppUser appUser)
+        public string CreateToken(AppUser appUser)
         {
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, appUser.Id),
