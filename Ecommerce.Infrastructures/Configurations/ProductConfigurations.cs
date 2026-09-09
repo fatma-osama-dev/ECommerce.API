@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ecommerce.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecommerce.Infrastructure.Configurations
 {
     internal class ProductConfigurations : IEntityTypeConfiguration<Product>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Product> product)
+        public void Configure(EntityTypeBuilder<Product> product)
         {
             product.HasOne(b => b.ProductBrand)
                   .WithMany(p => p.Products)
