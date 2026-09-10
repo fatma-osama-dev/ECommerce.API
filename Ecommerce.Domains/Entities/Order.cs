@@ -13,6 +13,7 @@ namespace Ecommerce.Domain.Entities
         public string BuyerEmail { get; set; } = null!;
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
+        public OrderAddress ShipToAddress { get; set; } = null!;
         public ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
         public decimal GetTotal()
         {
