@@ -14,5 +14,7 @@ namespace Ecommerce.Domain.Entities
         public Decimal Price { get; set; }
 
         public int Quantity { get; set; } = 1;
+        public Order Order { get; set; } = null!;
+        public int OrderId { get; set; }
     }
 }

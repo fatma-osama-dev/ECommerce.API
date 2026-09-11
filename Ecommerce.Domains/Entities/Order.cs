@@ -15,12 +15,18 @@ namespace Ecommerce.Domain.Entities
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public OrderAddress ShipToAddress { get; set; } = null!;
         public ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
+        public int DeliveryMethodId { get; set; }
+        public DeliveryMethod DeliveryMethod { get; set; } = null!;
         public decimal GetTotal()
         {
             decimal subTotal = 0;
             foreach (var item in OrderItems)
             {
                 subTotal += item.Price * item.Quantity;
+            }
+            if (DeliveryMethod != null)
+            {
+                subTotal += DeliveryMethod.Cost;
             }
             return subTotal;
         }
