@@ -24,6 +24,8 @@ namespace Ecommerce.Infrastructure.Data
        public DbSet<Product> Products { get; set; } = null!;   
         public DbSet<ProductBrand> ProductBrands { get; set; } = null!;
         public DbSet<ProductType> ProductTypes { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; } = null!;
 
     }
 }

@@ -9,6 +9,7 @@ using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using StackExchange.Redis;
+using System.Text.Json.Serialization;
 namespace Ecommerce
 {
     public class Program
@@ -47,11 +48,17 @@ namespace Ecommerce
             builder.Services.AddScoped<ITypeService, TypeService>();
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
             builder.Services.AddScoped<IBasketService, BasketService>();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+               {
+                   options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+               });
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddIdentityCore<AppUser>()
                .AddEntityFrameworkStores<EcommerceDbContext>();
 
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             var app = builder.Build();
 
         
