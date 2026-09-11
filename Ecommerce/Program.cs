@@ -51,6 +51,7 @@ namespace Ecommerce
                {
                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                });
+            builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             var app = builder.Build();

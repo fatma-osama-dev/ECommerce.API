@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.DTOs.Basket;
 using Ecommerce.Application.DTOs.BrandDtos;
+using Ecommerce.Application.DTOs.Order;
 using Ecommerce.Application.DTOs.ProductDtos;
 using Ecommerce.Application.DTOs.TypeDtos;
 using Ecommerce.Application.Helpers;
@@ -35,6 +36,21 @@ namespace Ecommerce.Application.Mapping
             CreateMap<CustomerBasket, CustomerBasketDto>().ReverseMap();
 
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+
+            CreateMap<OrderAddressDto, OrderAddress>().ReverseMap();
+          
+            CreateMap<OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<Order, OrderGetDto>()
+                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
+                 .ForMember(d => d.DeliveryMethodName, o => o.MapFrom(s => s.DeliveryMethod.ShortName))
+                 .ForMember(d => d.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Cost))
+                 .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.GetTotal()));
+
+            CreateMap<DeliveryMethod, DeliveryMethodDto>();
+
+
+
+
 
         }
     }

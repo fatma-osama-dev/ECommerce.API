@@ -19,11 +19,11 @@ namespace Ecommerce.Infrastructure.Repositories
         }
 
 
-        public async Task<Order?> GetOrderByIdAsync(int orderId)
+        public async Task<Order?> GetOrderByIdAsync(int orderId, string buyerEmail)
         {
             return await _context.Orders.Include(o => o.OrderItems)
                                         .Include(o => o.DeliveryMethod)
-                                        .FirstOrDefaultAsync(o => o.Id == orderId);
+                                        .FirstOrDefaultAsync(o => o.Id == orderId && o.BuyerEmail == buyerEmail);
         }
 
         public async Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail)

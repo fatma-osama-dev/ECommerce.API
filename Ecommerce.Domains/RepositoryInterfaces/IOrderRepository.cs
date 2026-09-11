@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Domain.RepositoryInterfaces
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IGenericRepository<Order>
     {
-       Task<Order?> GetOrderByIdAsync(int orderId);
+       Task<Order?> GetOrderByIdAsync(int orderId, string buyerEmail);
        Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
        
     }
