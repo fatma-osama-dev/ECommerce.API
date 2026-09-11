@@ -1,6 +1,7 @@
 using Ecommerce.Application.Mapping;
 using Ecommerce.Application.ServiceInterfaces;
 using Ecommerce.Application.Services;
+using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryInterfaces;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
@@ -52,6 +53,10 @@ namespace Ecommerce
                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                });
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddIdentityCore<AppUser>()
+               .AddEntityFrameworkStores<EcommerceDbContext>();
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             var app = builder.Build();
