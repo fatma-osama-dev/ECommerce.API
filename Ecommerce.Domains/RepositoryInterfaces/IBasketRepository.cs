@@ -12,6 +12,10 @@ namespace Ecommerce.Domain.RepositoryInterfaces
         Task<CustomerBasket?> GetCustomerBasketByBasketIdAsync(string basketId);
         Task<CustomerBasket?> UpdateCustomerBasketAsync(CustomerBasket? basket);
         Task<bool> DeleteCustomerBasketByBasketIdAsync(string basketId);
+        //Task<string?> GetUserBasketIdAsync(string userId);
+
+        //Task<bool> SetUserBasketIdAsync(string userId, string basketId);
+        //Task<bool> DeleteUserBasketIdAsync(string userId);
 
     }
 }

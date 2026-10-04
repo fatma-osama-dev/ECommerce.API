@@ -17,5 +17,6 @@ namespace Ecommerce.Application.DTOs.Order
         public string DeliveryMethodName { get; set; } = null!;
         public decimal ShippingPrice { get; set; }
         public decimal TotalPrice { get; set; }
+       
     }
 }

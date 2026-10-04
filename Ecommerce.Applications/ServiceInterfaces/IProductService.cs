@@ -15,7 +15,6 @@ namespace Ecommerce.Application.ServiceInterfaces
         Task<BaseResponse<ProductGetDto>> GetProductByIdAsync(int productId);
         Task<BaseResponse<ProductGetDto>> CreateProductAsync(ProductSendDto dto);
         Task<BaseResponse<ProductGetDto>> UpdateProductAsync(int id, ProductUpdateDto dto);
-
         Task<BaseResponse<string>> DeleteProductAsync(int productId); 
     }
 }

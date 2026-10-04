@@ -10,7 +10,9 @@ namespace Ecommerce.Domain.RepositoryInterfaces
     public interface IOrderRepository : IGenericRepository<Order>
     {
        Task<Order?> GetOrderByIdAsync(int orderId, string buyerEmail);
-       Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
-       
+        Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
+        Task<Order?> GetOrderByPaymentIntentIdAsync(string paymentIntentId);
+     
+
     }
 }

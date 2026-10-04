@@ -11,5 +11,6 @@ namespace Ecommerce.Application.DTOs.AccountDtos
         public string DisplayName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Token { get; set; } = null!;
+        public string? BasketId { get; set; } = null!;
     }
 }

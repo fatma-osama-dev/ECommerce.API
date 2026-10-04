@@ -21,5 +21,7 @@ namespace Ecommerce.Application.DTOs.AccountDtos
         [RegularExpression(@"(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{""':;?/>.<,])(?!.*\s).*$",
             ErrorMessage = "Password must be 6-10 characters, and contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character!")]
         public string Password { get; set; } = null!;
+        public string? BasketId { get; set; } = null!;
+
     }
 }

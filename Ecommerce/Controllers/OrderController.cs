@@ -19,54 +19,89 @@ namespace Ecommerce.APIs.Controllers
         {
             _orderService = orderService;
         }
+
+       
         [HttpPost]
         public async Task<ActionResult<BaseResponse<OrderGetDto>>> CreateOrder([FromBody] OrderSendDto orderDto)
         {
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new BaseResponse<OrderGetDto>(false, "User is not authenticated."));
 
-            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
+            }
 
-            if (string.IsNullOrEmpty(buyerEmail))
-                return BadRequest(new BaseResponse<OrderGetDto>(false, "User email not found in token validation!"));
+            var result = await _orderService.CreateOrderAsync(userId, orderDto);
 
-            var result = await _orderService.CreateOrderAsync(buyerEmail, orderDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
-            if (result.Success) return Ok(result);
             return BadRequest(result);
         }
+
 
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<OrderGetDto>>>> GetOrdersForUser()
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-            var result = await _orderService.GetOrdersForUserAsync(buyerEmail!);
 
-            if (!result.Success) return Ok(result);
+            if (string.IsNullOrEmpty(buyerEmail))
+            {
+                return Unauthorized(
+                    new BaseResponse<IReadOnlyList<OrderGetDto>>(false, "User email is not found in token."));
+                
+            }
+
+            var result = await _orderService.GetOrdersForUserAsync(buyerEmail);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
             return NotFound(result);
-           
         }
+
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<BaseResponse<OrderGetDto>>> GetOrderById([FromRoute] int id)
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-            var result = await _orderService.GetOrderByIdAsync(id, buyerEmail!);
+         
 
-            if (result.Success) return BadRequest(result);
-            return Ok(result);
+            if (string.IsNullOrEmpty(buyerEmail))
+            {
+                return Unauthorized(new BaseResponse<OrderGetDto>(false, "User email is not found in token."));
+
+            }
+
+            var result = await _orderService.GetOrderByIdAsync(id, buyerEmail);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return NotFound(result);
         }
 
+     
         [AllowAnonymous]
         [HttpGet("delivery-methods")]
         public async Task<ActionResult<BaseResponse<IReadOnlyList<DeliveryMethodDto>>>> GetDeliveryMethods()
         {
             var result = await _orderService.GetDeliveryMethodsAsync();
 
-            if (result.Success) return Ok(result);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
             return BadRequest(result);
         }
-
-
-
-
-
     }
 }
