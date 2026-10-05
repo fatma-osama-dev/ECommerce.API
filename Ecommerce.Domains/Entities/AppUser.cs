@@ -13,6 +13,7 @@ namespace Ecommerce.Domain.Entities
     {
         public string DisplayName { get; set; } = null!;
         public Address? Address { get; set; }
+        public string? BasketId { get; set; }
 
     }
 

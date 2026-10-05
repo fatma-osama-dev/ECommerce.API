@@ -1,11 +1,13 @@
 using Ecommerce.Application.Mapping;
 using Ecommerce.Application.ServiceInterfaces;
 using Ecommerce.Application.Services;
+using Ecommerce.Application.Services.Ecommerce.Application.Services;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryInterfaces;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.SeedData;
 using Ecommerce.Infrastructure.Repositories;
+using Ecommerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using StackExchange.Redis;
@@ -35,7 +37,7 @@ namespace Ecommerce
                 var configuration = ConfigurationOptions.Parse(redisConnectionString, true);
 
             
-                configuration.AbortOnConnectFail = false;
+                configuration.AbortOnConnectFail = true;
 
                 return ConnectionMultiplexer.Connect(configuration);
             });
@@ -59,6 +61,8 @@ namespace Ecommerce
                .AddEntityFrameworkStores<EcommerceDbContext>();
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<IResponseCacheService,ResponseCacheService>();
             var app = builder.Build();
 
         
@@ -82,9 +86,6 @@ namespace Ecommerce
             catch (Exception ex)
             {
              
-                
-
-             
                 logger.LogError(ex, "An error occurred during database migration.");
             }
 
@@ -99,6 +100,7 @@ namespace Ecommerce
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

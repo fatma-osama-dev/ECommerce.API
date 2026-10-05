@@ -23,8 +23,8 @@ namespace Ecommerce.APIs.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("by BasketId")]
-        public async Task<IActionResult> GetBasket([FromQuery] string basketId)
+        [HttpGet("{basketId}")]
+        public async Task<IActionResult> GetBasket([FromRoute] string basketId)
         {
             var result = await _basketService.GetCustomerBasketByBasketIdAsync(basketId);
             return result.Success ? Ok(result) : BadRequest(result);

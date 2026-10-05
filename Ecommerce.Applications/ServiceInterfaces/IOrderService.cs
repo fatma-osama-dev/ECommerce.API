@@ -10,10 +10,10 @@ namespace Ecommerce.Application.ServiceInterfaces
 {
    
         public interface IOrderService
-        {   Task<BaseResponse<OrderGetDto>> CreateOrderAsync(string buyerEmail, OrderSendDto orderDto);
+        {   Task<BaseResponse<OrderGetDto>> CreateOrderAsync(string userId, OrderSendDto orderDto);
             Task<BaseResponse<IReadOnlyList<OrderGetDto>>> GetOrdersForUserAsync(string buyerEmail);
             Task<BaseResponse<OrderGetDto>> GetOrderByIdAsync(int orderId, string buyerEmail);
-            Task<BaseResponse<IReadOnlyList<DeliveryMethodDto>>> GetDeliveryMethodsAsync(); 
-        
+            Task<BaseResponse<IReadOnlyList<DeliveryMethodDto>>> GetDeliveryMethodsAsync();
+            Task<BaseResponse<bool>> HandlePaymentSucceededAsync(string paymentIntentId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Application.DTOs.BrandDtos;
+﻿using Ecommerce.APIs.Attributes;
+using Ecommerce.Application.DTOs.BrandDtos;
 using Ecommerce.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,7 @@ namespace Ecommerce.APIs.Controllers
         }
 
         [HttpGet]
+        [Cached(timeToLiveSeconds: 3600)]
         public async Task<IActionResult> GetAllBrands()
         {
             var result = await _brandService.GetAllBrandsAsync();

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Application.DTOs.TypeDtos;
+﻿using Ecommerce.APIs.Attributes;
+using Ecommerce.Application.DTOs.TypeDtos;
 using Ecommerce.Application.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace Ecommerce.APIs.Controllers
         }
 
         [HttpGet]
+        [Cached(timeToLiveSeconds: 3600)]
         public async Task<IActionResult> GetAllTypes()
         {
             var result = await _typeService.GetAllTypesAsync();

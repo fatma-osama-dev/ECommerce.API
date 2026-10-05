@@ -12,6 +12,7 @@ namespace Ecommerce.Application.ServiceInterfaces
     {
       Task<BaseResponse<CustomerBasketDto>> GetCustomerBasketByBasketIdAsync(string basketId);
        Task<BaseResponse<CustomerBasketDto>> UpdateCustomerBasketAsync(CustomerBasketDto? basket);
-       Task<BaseResponse<bool>> DeleteCustomerBasketByBasketIdAsync(string basketId);   
+       Task<BaseResponse<bool>> DeleteCustomerBasketByBasketIdAsync(string basketId);
+      Task<BaseResponse<CustomerBasketDto>> MergeOrAttachBasketAsync(string? userBasketId, string? anonymousBasketId);
     }
 }

@@ -43,14 +43,10 @@ namespace Ecommerce.Application.Mapping
             CreateMap<Order, OrderGetDto>()
                  .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                  .ForMember(d => d.DeliveryMethodName, o => o.MapFrom(s => s.DeliveryMethod.ShortName))
-                 .ForMember(d => d.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Cost))
-                 .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.GetTotal()));
+                 .ForMember(d => d.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Cost));
+                 //.ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.GetTotal()));
 
             CreateMap<DeliveryMethod, DeliveryMethodDto>();
-
-
-
-
 
         }
     }

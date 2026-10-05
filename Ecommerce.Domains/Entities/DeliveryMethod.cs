@@ -13,5 +13,6 @@ namespace Ecommerce.Domain.Entities
         public string Description { get; set; } = null!;
         public decimal Cost { get; set; }
         public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        
     }
 }

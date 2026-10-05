@@ -26,6 +26,13 @@ namespace Ecommerce.Infrastructure.Repositories
                                         .FirstOrDefaultAsync(o => o.Id == orderId && o.BuyerEmail == buyerEmail);
         }
 
+        
+         public async Task<Order?> GetOrderByPaymentIntentIdAsync(string paymentIntentId)
+        {
+            return await _context.Orders.FirstOrDefaultAsync(o => o.PaymentIntentId == paymentIntentId);
+        }
+        
+
         public async Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail)
         {
             return await _context.Orders

@@ -15,5 +15,7 @@ namespace Ecommerce.Application.DTOs.AccountDtos
 
         [Required(ErrorMessage = "Password is required!")]
         public string Password { get; set; } = null!;
+        public string? BasketId { get; set; } = null!;
+
     }
 }
